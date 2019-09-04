@@ -17,9 +17,7 @@ class Budget {
   remainingBudget(quantity = 0) {
     return this.remaining -= Number(quantity)
   }
-  
 }
-
 
 
 // Interface class, for everything related to HTML
@@ -77,9 +75,26 @@ class Interfaz {
     remaining.innerHTML = `
       ${remainingUserBudget}
     `
+    this.checkBudget()
+  }
+
+  // Change color to remaining budget
+  checkBudget() {
+    const totalBudget = quantityBudget.budget
+    const remainingBudget = quantityBudget.remaining
+
+    // Check 25% & 50%
+    if((totalBudget / 4) > remainingBudget) {
+      const remaining = document.querySelector('.remaining')
+      remaining.classList.remove('alert-success', 'alert-warning')
+      remaining.classList.add('alert-danger')
+    } else if((totalBudget / 2) > remainingBudget) {
+      const remaining = document.querySelector('.remaining')
+      remaining.classList.remove('alert-success')
+      remaining.classList.add('alert-warning')
+    }
   }
 }
-
 
 
 // Event Listeners
@@ -88,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function(){
     window.location.reload()
   } else {
     quantityBudget = new Budget(userBudget)
-    console.log(quantityBudget)
     // Insert the intreface class
     const ui = new Interfaz()
     ui.insertBudget(quantityBudget.budget)
