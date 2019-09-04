@@ -20,6 +20,8 @@ class Budget {
   
 }
 
+
+
 // Interface class, for everything related to HTML
 class Interfaz {
   insertBudget(quantity) {
@@ -31,6 +33,7 @@ class Interfaz {
     remainingSpan.innerHTML = `${quantity}`
 
   }
+
   printMessage(message, type) {
     const divMessage = document.createElement('div')
     divMessage.classList.add('text-center', 'alert')
@@ -50,7 +53,24 @@ class Interfaz {
       form.reset()
     }, 3000)
   }
+
+  // Insert the expenses at list
+  addExpenseList(name, quantity) {
+    const expenseList = document.querySelector('#expenses ul')
+
+    // Create li
+    const li = document.createElement('li')
+    li.className = 'list-group-item d-flex justify-content-between align-items-center'
+    li.innerHTML = `
+      ${name}
+      <span class="badge badge-primary badge-pill">${quantity}</span>
+    `
+    // Insert to HTML
+    expenseList.appendChild(li)
+  }
 }
+
+
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function(){
@@ -79,6 +99,8 @@ form.addEventListener('submit', function(e) {
   if(nameExpense === '' || quantityExpense === '') {
     ui.printMessage('Hubo un error', 'error')
   } else {
-    console.log('El gasto se agrego')
+    // Insert to HTML
+    ui.printMessage('Correcto', 'correct')
+    ui.addExpenseList(nameExpense, quantityExpense)
   }
 })
