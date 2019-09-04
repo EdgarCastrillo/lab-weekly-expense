@@ -2,6 +2,7 @@
 
 // Variables
 const userBudget = prompt('¿Cual es tu presupuesto semanal?')
+const form = document.getElementById('add-expense')
 let quantityBudget
 
 
@@ -30,6 +31,25 @@ class Interfaz {
     remainingSpan.innerHTML = `${quantity}`
 
   }
+  printMessage(message, type) {
+    const divMessage = document.createElement('div')
+    divMessage.classList.add('text-center', 'alert')
+    if(type === 'error') {
+      divMessage.classList.add('alert-danger')
+    } else {
+      divMessage.classList.add('alert-success')
+    }
+    divMessage.appendChild(document.createTextNode(message))
+
+    // Insert at DOM
+    document.querySelector('.primary').insertBefore(divMessage, form)
+
+    // Delete alert before 3s
+    setTimeout(function() {
+      document.querySelector('.primary .alert').remove()
+      form.reset()
+    }, 3000)
+  }
 }
 
 // Event Listeners
@@ -42,5 +62,23 @@ document.addEventListener('DOMContentLoaded', function(){
     // Insert the intreface class
     const ui = new Interfaz()
     ui.insertBudget(quantityBudget.budget)
+  }
+})
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault()
+
+  // Read the expense form
+  const nameExpense = document.querySelector('#expense').value
+  const quantityExpense = document.querySelector('#quantity').value
+
+  // Get the form in the interface
+  const ui = new Interfaz
+
+  // Check that the fields are not empty
+  if(nameExpense === '' || quantityExpense === '') {
+    ui.printMessage('Hubo un error', 'error')
+  } else {
+    console.log('El gasto se agrego')
   }
 })
