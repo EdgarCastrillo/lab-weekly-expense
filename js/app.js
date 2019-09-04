@@ -4,7 +4,6 @@
 const userBudget = prompt('¿Cual es tu presupuesto semanal?')
 let quantityBudget
 
-console.log(userBudget)
 
 // Classes
 class Budget {
@@ -20,7 +19,18 @@ class Budget {
   
 }
 
+// Interface class, for everything related to HTML
+class Interfaz {
+  insertBudget(quantity) {
+    const budgetSpan = document.querySelector('span#total')
+    const remainingSpan = document.querySelector('span#remaining')
 
+    // Insert to HTML
+    budgetSpan.innerHTML = `${quantity}`
+    remainingSpan.innerHTML = `${quantity}`
+
+  }
+}
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function(){
@@ -29,5 +39,8 @@ document.addEventListener('DOMContentLoaded', function(){
   } else {
     quantityBudget = new Budget(userBudget)
     console.log(quantityBudget)
+    // Insert the intreface class
+    const ui = new Interfaz()
+    ui.insertBudget(quantityBudget.budget)
   }
 })
