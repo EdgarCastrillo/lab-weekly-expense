@@ -68,6 +68,16 @@ class Interfaz {
     // Insert to HTML
     expenseList.appendChild(li)
   }
+
+  // Check the remaining budget
+  remainingBudget(quantity) {
+    const remaining = document.querySelector('span#remaining')
+    // Read remaining budget
+    const remainingUserBudget = quantityBudget.remainingBudget(quantity)
+    remaining.innerHTML = `
+      ${remainingUserBudget}
+    `
+  }
 }
 
 
@@ -102,5 +112,6 @@ form.addEventListener('submit', function(e) {
     // Insert to HTML
     ui.printMessage('Correcto', 'correct')
     ui.addExpenseList(nameExpense, quantityExpense)
+    ui.remainingBudget(quantityExpense)
   }
 })
